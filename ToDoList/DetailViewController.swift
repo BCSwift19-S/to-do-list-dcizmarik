@@ -11,13 +11,21 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var toDoField: UITextField!
-    var toDoItem: String?
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
+    @IBOutlet weak var toDoNotesView: UITextView!
+    var toDoItem: String?
+    var toDoNoteItem: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let toDoItem = toDoItem {
             toDoField.text = toDoItem
+            self.navigationItem.title = "Edit Item"
+        } else {
+            self.navigationItem.title = "New Item"
+        }
+        if let toDoNoteItem = toDoNoteItem {
+            toDoNotesView.text = toDoNoteItem
         }
         enableDisableSaveButton()
         toDoField.becomeFirstResponder()
@@ -26,6 +34,7 @@ class DetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "UnwindFromSave" {
             toDoItem = toDoField.text
+            toDoNoteItem = toDoNotesView.text
         }
     }
     
